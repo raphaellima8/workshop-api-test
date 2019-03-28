@@ -1,0 +1,27 @@
+{
+  "name": "workshop-api-test",
+  "version": "1.0.0",
+  "description": "A very simple Node API",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index"
+  },
+  "keywords": [
+    "supertest",
+    "mocha",
+    "chai",
+    "node"
+  ],
+  "author": "Raphael Lima <raphael.de.a.lima@accenture.com>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "nodemon": "^1.18.10",
+    "nyc": "^13.3.0",
+    "supertest": "^4.0.2"
+  }
+}
