@@ -11,7 +11,6 @@ app.use(bodyParser.json());
 
 app.route('/api/health').get((req, res) => res.json({ data: 'API is running' }));
 app.route('/api/users').get((req, res) => {
-  console.log(req.headers);
   if (req.query.limit) {
     return res.json(users.slice(0, Number(req.query.limit)));
   }
@@ -35,20 +34,21 @@ app.route('/api/auth').post((req, res) => {
 
 app.route('/api/user/create').post((req, res) => {
   const hasBody = Object.keys(req.body).length > 0;
-  if (req.headers.authorization && hasBody) {
+  if (req.headers.authorization) {
     const authData = req.headers.authorization.split(' ');
     if (authData[0] === 'JWT' && authData[1] === TOKEN) {
-      /*
-      * Processa a criação
-      */
-     return res.status(201).json({ status: 'OK', message: 'Dado persistido com sucesso'});
+      return hasBody
+        ? res.status(201).json({ status: 'OK', message: 'Dado persistido com sucesso'})
+        : res.status(500).json({ message: 'Erro ao persistir! Dados não recebidos' });
     }
     return res.status(403).json({ message: 'Sem permissão' });
   }
-  return res.status(500).json({ message: 'Erro ao persistir! Dados não recebidos' });
+  return res.status(401).json({ message: 'Não autorizado' });
 });
 
 http
   .createServer(app)
   .listen(5000)
   .on('listening', () => console.log('Rodando na porta 5000'));
+
+module.exports = app;
