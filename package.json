@@ -4,7 +4,9 @@
   "description": "A very simple Node API",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index"
+    "start": "nodemon index",
+    "test": "mocha --exit ./test/api.test.js",
+    "coverage": "nyc mocha --exit ./test/api.test.js"
   },
   "keywords": [
     "supertest",
